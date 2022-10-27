@@ -4,36 +4,54 @@
 #include <iostream>
 #include <type_traits>
 
-// template<class T> struct is_pair : std::
-
-template <int A>
+template <int A, bool M1, bool M2>
 class FizzBuzz
 {
 public:
-    struct pair_tag {};
-    struct non_pair_tag {};
-
-    void val(typename std::conditional<A%2, pair_tag, non_pair_tag>::type tag = {}) const
+    void operator()() const
     {
-        return get_val(tag);
-    }
-
-private:
-    void get_val(FizzBuzz::pair_tag) const
-    {
-        std::cout << "YOOOOOOOO" << std::endl;
-    }
-
-    void get_val(FizzBuzz::non_pair_tag) const
-    {
-        std::cout << "Boss" << std::endl;
-    }
-
-public:
-    FizzBuzz()
-    {
+        std::cout << A << std::endl;
     }
 };
 
+template <int A, bool M2>
+class FizzBuzz<A, false, M2>
+{
+public:
+    void operator()() const
+    {
+        std::cout << "Fizz" << std::endl;
+    }
+};
+
+template <int A, bool M1>
+class FizzBuzz<A, M1, false>
+{
+public:
+    void operator()() const
+    {
+        std::cout << "Fizz" << std::endl;
+    }
+};
+
+template <int A>
+class FizzBuzz<A, false, false>
+{
+public:
+    void operator()() const
+    {
+        std::cout << "FizzBuzz" << std::endl;
+    }
+};
+
+template <int A>
+class FizzBuz
+{
+public:
+    void operator()() const
+    {
+        return FizzBuzz<A, A%2, A%3>()();
+    }
+};
 
 #endif // __FIZZBUZZ_H__
