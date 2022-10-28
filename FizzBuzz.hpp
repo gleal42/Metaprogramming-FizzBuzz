@@ -4,7 +4,7 @@
 #include <iostream>
 #include <type_traits>
 
-template <int A, bool M1, bool M2>
+template <int A, bool B = ((bool)(A%2)), bool C = ((bool)(A%3))>
 class FizzBuzz
 {
 public:
@@ -30,7 +30,7 @@ class FizzBuzz<A, M1, false>
 public:
     void operator()() const
     {
-        std::cout << "Fizz" << std::endl;
+        std::cout << "Buzz" << std::endl;
     }
 };
 
@@ -41,16 +41,6 @@ public:
     void operator()() const
     {
         std::cout << "FizzBuzz" << std::endl;
-    }
-};
-
-template <int A>
-class FizzBuz
-{
-public:
-    void operator()() const
-    {
-        return FizzBuzz<A, A%2, A%3>()();
     }
 };
 
